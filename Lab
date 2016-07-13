@@ -7599,7 +7599,9 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
     var verb1 = verb.thirdPersonSingular;
     var subject = subj.singular;
     var directObject = DO.singular;
-    
+
+
+//turn this part into one big verb conjugator that is separate
     if (tense === 1) {
     switch (personAndNumber) {
     case 1:
@@ -7745,6 +7747,12 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         var aSentence =  article + " " + subject + " " + verb1 + " the " + directObject + ".";
         
         return aSentence;
+    };
+    //this one does the imperfect pluperfect (yikes!)
+    this.charCreator = function () {
+      
+      
+        
     };
     
     
