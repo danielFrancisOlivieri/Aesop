@@ -1,5 +1,9 @@
 
 
+
+
+
+
 // yes, we're going to be crude and load all the words into memory... it's really not so bad.
 // the list comes from this gem:
 // http://www.ashley-bovan.co.uk/words/partsofspeech.html
@@ -7585,22 +7589,12 @@ function shuffleAll () {
     shuffle(adjectives);
 }
 **/
-
-function sentence (subj, verb, DO, tense, personAndNumber) {
-    
-    this.subject = subject;
-    this.verb = verb;
-    this.DO = DO;
-    this.tense = tense;
-    this.personAndNumber = personAndNumber;
-    
-    //this part will eventually be its own object
-    var article = "The";
-    var verb1 = verb.thirdPersonSingular;
-    var subject = subj.singular;
-    var directObject = DO.singular;
-    
-    if (tense === 1) {
+function verbConjugator (verb, tense, personAndNumber) {
+    var verb1 = verb.firstPersonSingular;
+    console.log(verb);
+    var article = "";
+    var subject = "";
+   if (tense === 1) {
     switch (personAndNumber) {
     case 1:
         verb1 = verb.firstPersonSingular;
@@ -7627,7 +7621,7 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         break;
     case 6:
         verb1 = verb.firstPersonSingular;
-        subject = subj.plural;
+        subject = subject.plural;
     }
     }
     
@@ -7661,7 +7655,7 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         break;
     case 6:
         
-        subject = subj.plural;
+        subject = subject.plural;
     }
         
         
@@ -7697,7 +7691,7 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         break;
     case 6:
          verb1 = "were " + verb.gerund;
-        subject = subj.plural;
+        subject = subject.plural;
     }
     
      }
@@ -7733,16 +7727,332 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
         break;
     case 6:
         
-        subject = subj.plural;
+        subject = subject.plural;
     }
         
         
     }
+    return verb1;
+    }
+
+   //end
+   
+   //conjugates articles
+   function articleConjugator (tense, personAndNumber) {
+    var verb1 = "";
+    var article = "the";
+    var subject = "";
+   if (tense === 1) {
+    switch (personAndNumber) {
+    case 1:
+        verb1 = verb.firstPersonSingular;
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+       verb1 = verb.firstPersonSingular;
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+        verb1 = verb.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = verb.firstPersonSingular;
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+        verb1 = verb.firstPersonSingular;
+        article = "";
+       subject = "You";
+        break;
+    case 6:
+        verb1 = verb.firstPersonSingular;
+        subject = subject.plural;
+    }
+    }
+    
+//future
+    if(tense === 2) {
+        
+        verb1 = verb.futureTense;
+          switch (personAndNumber) {
+    case 1:
+       
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+       
+        break;
+    case 4:
+       
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+        
+        subject = subject.plural;
+    }
+        
+        
+    }
+    
+//imperfect
+     if(tense === 3) {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + verb.gerund;
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      verb1 = "were " + verb.gerund;
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+        verb1 = "was " + verb.gerund;
+        break;
+    case 4:
+        verb1 = "were " + verb.gerund;
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+        verb1 = "were " + verb.gerund;
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+         verb1 = "were " + verb.gerund;
+        subject = subject.plural;
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === 4) {
+        verb1 =  verb.pastParticiple;
+     
+          switch (personAndNumber) {
+              
+    case 1:
+       
+        article = "";
+        subject = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject = "You";
+        break;
+    case 3:
+        
+        break;
+    case 4:
+       
+        subject = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+        
+        subject = subject.plural;
+    }
+        
+        
+    }
+    return article;
+    }
+ //conjugates subjects
+ 
+ function subjectConjugator (subject, tense, personAndNumber) {
+    var verb1 = "";
+    var article = "";
+    console.log(subject.singular);
+    var subject1 = subject.singular;
+   if (tense === 1) {
+    switch (personAndNumber) {
+    case 1:
+        verb1 = verb.firstPersonSingular;
+        article = "";
+        subject1 = "I";
+        break;
+    case 2:
+       verb1 = verb.firstPersonSingular;
+       article = "";
+       subject1 = "You";
+        break;
+    case 3:
+        verb1 = verb.thirdPersonSingular;
+        break;
+    case 4:
+        verb1 = verb.firstPersonSingular;
+        subject1 = "We";
+        article = "";
+        break;
+    case 5:
+        verb1 = verb.firstPersonSingular;
+        article = "";
+       subject1 = "You";
+        break;
+    case 6:
+        console.log("Hey");
+        verb1 = verb.firstPersonSingular;
+        subject1 = subject.plural;
+    }
+    }
+    
+//future
+    if(tense === 2) {
+        
+        verb1 = verb.futureTense;
+          switch (personAndNumber) {
+    case 1:
+       
+        article = "";
+        subject1 = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject1 = "You";
+        break;
+    case 3:
+       
+        break;
+    case 4:
+       
+        subject1 = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject1 = "Ya'll";
+        break;
+    case 6:
+        
+        subject1 = subject.plural;
+    }
+        
+        
+    }
+    
+//imperfect
+     if(tense === 3) {
+        
+       
+          switch (personAndNumber) {
+    case 1:
+       verb1 = "was " + verb.gerund;
+        article = "";
+        subject1 = "I";
+        break;
+    case 2:
+      verb1 = "were " + verb.gerund;
+       article = "";
+       subject1 = "You";
+        break;
+    case 3:
+        verb1 = "was " + verb.gerund;
+        break;
+    case 4:
+        verb1 = "were " + verb.gerund;
+        subject1 = "We";
+        article = "";
+        break;
+    case 5:
+        verb1 = "were " + verb.gerund;
+        article = "";
+       subject = "Ya'll";
+        break;
+    case 6:
+         verb1 = "were " + verb.gerund;
+        subject1 = subject.plural;
+    }
+    
+     }
+     //here
+     //past tense
+    if(tense === 4) {
+        verb1 =  verb.pastParticiple;
+     
+          switch (personAndNumber) {
+              
+    case 1:
+       
+        article = "";
+        subject1 = "I";
+        break;
+    case 2:
+      
+       article = "";
+       subject1 = "You";
+        break;
+    case 3:
+        
+        break;
+    case 4:
+       
+        subject1 = "We";
+        article = "";
+        break;
+    case 5:
+       
+        article = "";
+       subject1 = "Ya'll";
+        break;
+    case 6:
+        
+        subject = subject.plural;
+    }
+        
+        
+    }
+    console.log("MOO: " + subject1);
+    return subject1;
+    }
+
+//sentence
+function structure2 (subject, verb, DO, tense, personAndNumber) {
+    
+   this.subject = subject;
+    this.verb = verb;
+    this.DO = DO;
+    this.tense = tense;
+    this.personAndNumber = personAndNumber;
+    
+    //this part will eventually be its own object
+    var article = articleConjugator(tense, personAndNumber);
+    var verb1 = verbConjugator(verb, tense, personAndNumber);
+    var subject1 = subjectConjugator(subject, tense, personAndNumber);
+    var directObject = DO.singular;
+    
+ 
         //article subject verb DO
     this.version1 = function () {
         
         //eventually capitalization will be a problem
-        var aSentence =  article + " " + subject + " " + verb1 + " the " + directObject + ".";
+        var aSentence =  article + " " + subject1 + " " + verb1 + " the " + directObject + ".";
         
         return aSentence;
     };
@@ -7757,6 +8067,8 @@ function sentence (subj, verb, DO, tense, personAndNumber) {
   4 - past
   5 - pluperfect
 **/    
+// conjgates verbs
+
 // (subj, verb, DO, tense, personAndNumber)    
 
 function randomIntFromInterval(min,max)
@@ -7767,13 +8079,33 @@ function randomIntFromInterval(min,max)
 //turn these into functions?
 var randomNoun1 = randomIntFromInterval(0, nouns.length);
 var randomNoun2 = randomIntFromInterval(0, nouns.length);
-var randomVerbPersonAndNumber = randomIntFromInterval(1, 6);
+var randomPersonAndNumber = randomIntFromInterval(1, 6);
 var randomTense = randomIntFromInterval(0, 4);
-var randomVerb = randomIntFromInterval(0, verbs.length);
+var randomVerb = randomIntFromInterval(0, verbs.length - 2);
 //so far unused
 var randomAdjective = randomIntFromInterval(0, adjectives.length);
+console.log("tense: " + 1 + " p&N: " + 6);
+console.log(nouns[randomNoun1]);
 
-var aSentence = new sentence(nouns[randomNoun1], verbs[randomVerb], nouns[randomNoun2], randomTense,  randomVerbPersonAndNumber);
-
+var aSentence = new structure2(nouns[randomNoun1], verbs[randomVerb], nouns[randomNoun2], randomTense, randomPersonAndNumber );
+console.log("tense: " + randomTense + " p&N: " + randomVerbPersonAndNumber);
 console.log(aSentence.version1());
 
+// new stuff
+
+
+function structure1(tense, personAndNumber) {
+  this.tense = tense;
+  this.personAndNumber = personAndNumber;
+  this.complexity = 1;
+    var subject1 = randomIntFromInterval(0, nouns.length);
+  var verb1 = randomIntFromInterval(0, verbs.length);
+  var article = "The ";
+ 
+  this.print = function() {
+    console.log(this.name + ', ' + this.job);
+  };
+  this.print = function() {
+    console.log(this.name + ', ' + this.job);
+  };
+}
